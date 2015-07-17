@@ -14,9 +14,11 @@ goog.provide('GG');
 goog.require('goog.Timer');
 goog.require('goog.array');
 goog.require('goog.dom');
+goog.require('goog.dom.classlist');
 goog.require('goog.events');
 goog.require('goog.json');
 goog.require('goog.style');
+goog.require('goog.Uri');
 
 
 
@@ -403,7 +405,6 @@ GG.flatten = function (var_args) {
  * maps each element in the array or object to the output of a function
  *
  * @param {Array|Object} array to map.
- * @param {Function} callback the function that maps a given element to the
  * returned value.
  * @return {Array|Object} the mapped array/object.
  */
@@ -646,7 +647,6 @@ G.prototype.not = function(fn, opt_handler) {
 
 
 /**
- * @param {Function} fn function to apply.
  * @param {Object=} opt_handler to bind 'this' to.
  * @return {G} the G object.
  */
@@ -907,7 +907,7 @@ G.prototype.visible = function(opt_bool) {
     opt_bool = function() {return bool;};
   }
   var show = /** @type {Function} */(opt_bool);
-  return this.each(function(el) {goog.style.showElement(el, show(el));});
+  return this.each(function(el) {goog.style.setElementShown(el, show(el));});
 };
 
 
@@ -1076,7 +1076,7 @@ G.prototype.addClass = function(className) {
     className = function() {return str;};
   }
   var fn = /** @type {Function} */(className);
-  return this.each(function(el) {goog.dom.classes.add(el, fn(el));});
+  return this.each(function(el) {goog.dom.classlist.add(el, fn(el));});
 };
 
 
@@ -1090,7 +1090,7 @@ G.prototype.removeClass = function(className) {
     className = function() {return str;};
   }
   var fn = /** @type {Function} */(className);
-  return this.each(function(el) {goog.dom.classes.remove(el, fn(el));});
+  return this.each(function(el) {goog.dom.classlist.remove(el, fn(el));});
 };
 
 
@@ -1107,9 +1107,9 @@ G.prototype.toggleClass = function(className, opt_on) {
   var enable = /** @type {Function} */(opt_on);
   return this.each(function(el) {
     if (goog.isDef(opt_on)) {
-      goog.dom.classes.enable(el, className, enable(el));
+      goog.dom.classlist.enable(el, className, enable(el));
     } else {
-      goog.dom.classes.toggle(el, className);
+      goog.dom.classlist.toggle(el, className);
     }
   });
 };
@@ -1138,7 +1138,7 @@ G.prototype.has = function(opt_selector) {
  * @return {boolean} true if class is on first element.
  */
 G.prototype.hasClass = function(className) {
-  return goog.dom.classes.has(this[0], className);
+  return goog.dom.classlist.contains(this[0], className);
 };
 
 

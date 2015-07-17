@@ -1,0 +1,19 @@
+{
+  "name": "g-closure",
+  "version": "1.0.1",
+  "description": "A way for jquery developers to use the closure library in a familiar way",
+  "main": "g.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gpprojekt/G-closure.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gpprojekt/G-closure/issues"
+  },
+  "homepage": "https://github.com/gpprojekt/G-closure#readme"
+}
